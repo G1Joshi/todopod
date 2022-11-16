@@ -11,24 +11,48 @@ import 'dart:typed_data' as typed_data;
 import 'package:serverpod_client/serverpod_client.dart';
 import 'protocol.dart';
 
-class _EndpointExample extends EndpointRef {
+class _EndpointTodo extends EndpointRef {
   @override
-  String get name => 'example';
+  String get name => 'todo';
 
-  _EndpointExample(EndpointCaller caller) : super(caller);
+  _EndpointTodo(EndpointCaller caller) : super(caller);
 
-  Future<String> hello(
-    String name,
+  Future<void> create(
+    Todo todo,
   ) async {
-    var retval = await caller.callServerEndpoint('example', 'hello', 'String', {
-      'name': name,
+    var retval = await caller.callServerEndpoint('todo', 'create', 'void', {
+      'todo': todo,
+    });
+    return retval;
+  }
+
+  Future<List<Todo>> read() async {
+    var retval =
+        await caller.callServerEndpoint('todo', 'read', 'List<Todo>', {});
+    return (retval as List).cast();
+  }
+
+  Future<bool> update(
+    Todo todo,
+  ) async {
+    var retval = await caller.callServerEndpoint('todo', 'update', 'bool', {
+      'todo': todo,
+    });
+    return retval;
+  }
+
+  Future<int> delete(
+    int id,
+  ) async {
+    var retval = await caller.callServerEndpoint('todo', 'delete', 'int', {
+      'id': id,
     });
     return retval;
   }
 }
 
 class Client extends ServerpodClient {
-  late final _EndpointExample example;
+  late final _EndpointTodo todo;
 
   Client(String host,
       {SecurityContext? context,
@@ -38,12 +62,12 @@ class Client extends ServerpodClient {
             context: context,
             errorHandler: errorHandler,
             authenticationKeyManager: authenticationKeyManager) {
-    example = _EndpointExample(this);
+    todo = _EndpointTodo(this);
   }
 
   @override
   Map<String, EndpointRef> get endpointRefLookup => {
-        'example': example,
+        'todo': todo,
       };
 
   @override

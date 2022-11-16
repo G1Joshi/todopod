@@ -13,9 +13,9 @@ library protocol;
 import 'dart:typed_data';
 import 'package:serverpod_client/serverpod_client.dart';
 
-import 'example_class.dart';
+import 'todo_class.dart';
 
-export 'example_class.dart';
+export 'todo_class.dart';
 export 'client.dart';
 
 class Protocol extends SerializationManager {
@@ -26,7 +26,7 @@ class Protocol extends SerializationManager {
   Map<String, constructor> get constructors => _constructors;
 
   Protocol() {
-    constructors['Example'] = (Map<String, dynamic> serialization) =>
-        Example.fromSerialization(serialization);
+    constructors['Todo'] = (Map<String, dynamic> serialization) =>
+        Todo.fromSerialization(serialization);
   }
 }
