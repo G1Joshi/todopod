@@ -1,0 +1,10 @@
+class: Todo
+
+table: todos
+
+fields:
+  title: String
+  description: String
+  priority: int
+  createdAt: DateTime
+  updatedAt: DateTime

@@ -13,9 +13,9 @@ library protocol;
 import 'dart:typed_data';
 import 'package:serverpod/serverpod.dart';
 
-import 'example_class.dart';
+import 'todo_class.dart';
 
-export 'example_class.dart';
+export 'todo_class.dart';
 
 class Protocol extends SerializationManagerServer {
   static final Protocol instance = Protocol();
@@ -33,7 +33,10 @@ class Protocol extends SerializationManagerServer {
   Map<Type, Table> get typeTableMapping => _typeTableMapping;
 
   Protocol() {
-    constructors['Example'] = (Map<String, dynamic> serialization) =>
-        Example.fromSerialization(serialization);
+    constructors['Todo'] = (Map<String, dynamic> serialization) =>
+        Todo.fromSerialization(serialization);
+
+    tableClassMapping['todos'] = 'Todo';
+    typeTableMapping[Todo] = Todo.t;
   }
 }
