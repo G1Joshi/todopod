@@ -6,5 +6,4 @@ fields:
   title: String
   description: String
   priority: int
-  createdAt: DateTime
-  updatedAt: DateTime
+  isDone: bool

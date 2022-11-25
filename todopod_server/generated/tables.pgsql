@@ -7,8 +7,7 @@ CREATE TABLE todos (
   "title" text NOT NULL,
   "description" text NOT NULL,
   "priority" integer NOT NULL,
-  "createdAt" timestamp without time zone NOT NULL,
-  "updatedAt" timestamp without time zone NOT NULL
+  "isDone" boolean NOT NULL
 );
 
 ALTER TABLE ONLY todos

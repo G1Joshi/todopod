@@ -21,16 +21,14 @@ class Todo extends SerializableEntity {
   late String title;
   late String description;
   late int priority;
-  late DateTime createdAt;
-  late DateTime updatedAt;
+  late bool isDone;
 
   Todo({
     this.id,
     required this.title,
     required this.description,
     required this.priority,
-    required this.createdAt,
-    required this.updatedAt,
+    required this.isDone,
   });
 
   Todo.fromSerialization(Map<String, dynamic> serialization) {
@@ -39,8 +37,7 @@ class Todo extends SerializableEntity {
     title = _data['title']!;
     description = _data['description']!;
     priority = _data['priority']!;
-    createdAt = DateTime.tryParse(_data['createdAt'])!;
-    updatedAt = DateTime.tryParse(_data['updatedAt'])!;
+    isDone = _data['isDone']!;
   }
 
   @override
@@ -50,8 +47,7 @@ class Todo extends SerializableEntity {
       'title': title,
       'description': description,
       'priority': priority,
-      'createdAt': createdAt.toUtc().toIso8601String(),
-      'updatedAt': updatedAt.toUtc().toIso8601String(),
+      'isDone': isDone,
     });
   }
 }

@@ -27,16 +27,14 @@ class Todo extends TableRow {
   late String title;
   late String description;
   late int priority;
-  late DateTime createdAt;
-  late DateTime updatedAt;
+  late bool isDone;
 
   Todo({
     this.id,
     required this.title,
     required this.description,
     required this.priority,
-    required this.createdAt,
-    required this.updatedAt,
+    required this.isDone,
   });
 
   Todo.fromSerialization(Map<String, dynamic> serialization) {
@@ -45,8 +43,7 @@ class Todo extends TableRow {
     title = _data['title']!;
     description = _data['description']!;
     priority = _data['priority']!;
-    createdAt = DateTime.tryParse(_data['createdAt'])!;
-    updatedAt = DateTime.tryParse(_data['updatedAt'])!;
+    isDone = _data['isDone']!;
   }
 
   @override
@@ -56,8 +53,7 @@ class Todo extends TableRow {
       'title': title,
       'description': description,
       'priority': priority,
-      'createdAt': createdAt.toUtc().toIso8601String(),
-      'updatedAt': updatedAt.toUtc().toIso8601String(),
+      'isDone': isDone,
     });
   }
 
@@ -68,8 +64,7 @@ class Todo extends TableRow {
       'title': title,
       'description': description,
       'priority': priority,
-      'createdAt': createdAt.toUtc().toIso8601String(),
-      'updatedAt': updatedAt.toUtc().toIso8601String(),
+      'isDone': isDone,
     });
   }
 
@@ -80,8 +75,7 @@ class Todo extends TableRow {
       'title': title,
       'description': description,
       'priority': priority,
-      'createdAt': createdAt.toUtc().toIso8601String(),
-      'updatedAt': updatedAt.toUtc().toIso8601String(),
+      'isDone': isDone,
     });
   }
 
@@ -100,11 +94,8 @@ class Todo extends TableRow {
       case 'priority':
         priority = value;
         return;
-      case 'createdAt':
-        createdAt = value;
-        return;
-      case 'updatedAt':
-        updatedAt = value;
+      case 'isDone':
+        isDone = value;
         return;
       default:
         throw UnimplementedError();
@@ -225,8 +216,7 @@ class TodoTable extends Table {
   final title = ColumnString('title');
   final description = ColumnString('description');
   final priority = ColumnInt('priority');
-  final createdAt = ColumnDateTime('createdAt');
-  final updatedAt = ColumnDateTime('updatedAt');
+  final isDone = ColumnBool('isDone');
 
   @override
   List<Column> get columns => [
@@ -234,8 +224,7 @@ class TodoTable extends Table {
         title,
         description,
         priority,
-        createdAt,
-        updatedAt,
+        isDone,
       ];
 }
 
