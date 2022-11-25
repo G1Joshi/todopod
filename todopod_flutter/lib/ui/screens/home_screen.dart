@@ -79,7 +79,7 @@ class MyHomePageState extends ConsumerState<MyHomePage> {
                                 descriptionController,
                                 priority,
                                 todo.id,
-                                todo.createdAt,
+                                todo.isDone,
                               );
                             },
                             backgroundColor:
@@ -99,10 +99,18 @@ class MyHomePageState extends ConsumerState<MyHomePage> {
                         ],
                       ),
                       child: ColoredBox(
-                        color: getShade(Colors.teal, todo.priority),
-                        child: ListTile(
+                        color: getShade(
+                          todo.isDone ? Colors.blueGrey : Colors.teal,
+                          todo.priority,
+                        ),
+                        child: CheckboxListTile(
                           title: Text(todo.title),
                           subtitle: Text(todo.description),
+                          value: todo.isDone,
+                          onChanged: (bool? value) {
+                            setState(() => todo.isDone = !todo.isDone);
+                            ref.read(crudProvider.notifier).update(todo);
+                          },
                         ),
                       ),
                     ),

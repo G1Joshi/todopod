@@ -13,7 +13,7 @@ void formDialog(
   TextEditingController descriptionController,
   Priority? priority, [
   int? id,
-  DateTime? createdAt,
+  bool isDone = false,
 ]) {
   final formKey = GlobalKey<FormState>();
   showDialog(
@@ -84,8 +84,7 @@ void formDialog(
                 title: titleController.text,
                 description: descriptionController.text,
                 priority: priority?.value ?? 1,
-                createdAt: createdAt ?? DateTime.now(),
-                updatedAt: DateTime.now(),
+                isDone: isDone,
               );
               if (id != null) {
                 ref.read(crudProvider.notifier).update(todo);
